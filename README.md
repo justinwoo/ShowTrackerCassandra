@@ -10,6 +10,6 @@ in the works, nothing to see here
 
 # Running
 
-![run config](http://www.evernote.com/shard/s385/sh/6786c611-1fea-4ccb-b37d-3d4e6fa35739/266244025b7f967d4777f7e1fc7ec2cb "intellij")
+![run config](http://media-cache-ak0.pinimg.com/originals/e1/15/22/e115221937c8ef192cdbe243eab83a81.jpg "intellij")
 
 or `java -jar **path-to-jar** server **path-to-yml**`
