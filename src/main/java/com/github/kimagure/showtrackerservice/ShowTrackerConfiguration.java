@@ -1,6 +1,8 @@
 package com.github.kimagure.showtrackerservice;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yammer.dropwizard.config.Configuration;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,4 +13,19 @@ import com.yammer.dropwizard.config.Configuration;
  * cross your fingers and run the tests!
  */
 public class ShowTrackerConfiguration extends Configuration {
+    @NotEmpty
+    @JsonProperty
+    private String template = "Hello, %s.";
+
+    @NotEmpty
+    @JsonProperty
+    private String defaultName = "Man-child";
+
+    public String getTemplate() {
+        return template;
+    }
+
+    public String getDefaultName() {
+        return defaultName;
+    }
 }

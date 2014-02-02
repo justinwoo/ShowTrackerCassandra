@@ -1,5 +1,7 @@
 package com.github.kimagure.showtrackerservice;
 
+import com.github.kimagure.showtrackerservice.health.TemplateHealthCheck;
+import com.github.kimagure.showtrackerservice.resources.ShowTrackerResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
@@ -24,6 +26,9 @@ public class ShowTrackerService extends Service<ShowTrackerConfiguration> {
 
     @Override
     public void run(ShowTrackerConfiguration configuration, Environment environment) {
-
+        final String template = configuration.getTemplate();
+        final String defaultName = configuration.getDefaultName();
+        environment.addResource(new ShowTrackerResource(template, defaultName));
+        environment.addHealthCheck(new TemplateHealthCheck(template));
     }
 }

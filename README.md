@@ -4,4 +4,4 @@ in the works, nothing to see here
 
 # Prerequisites
 
-maven
+* maven
