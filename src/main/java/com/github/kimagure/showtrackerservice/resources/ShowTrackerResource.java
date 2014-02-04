@@ -1,13 +1,17 @@
 package com.github.kimagure.showtrackerservice.resources;
 
-import com.google.common.base.Optional;
+import com.github.kimagure.showtrackerservice.core.Show;
+import com.github.kimagure.showtrackerservice.hibernate.ShowDAO;
+import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.metrics.annotation.Timed;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+
+import com.yammer.dropwizard.jersey.params.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,17 +24,25 @@ import javax.ws.rs.core.MediaType;
 @Path("/show-tracker")
 @Produces(MediaType.APPLICATION_JSON)
 public class ShowTrackerResource {
-    private final String template;
-    private final String defaultName;
+    private ShowDAO showDAO;
 
-    public ShowTrackerResource(String template, String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
+    public ShowTrackerResource(ShowDAO showDAO) {
+        this.showDAO = showDAO;
+    }
+
+    @GET
+    @Path("/hello")
+    @Timed
+    public String sayHello() {
+        return "Greetings, man-child.";
     }
 
     @GET
     @Timed
-    public String sayHello(@QueryParam("name") Optional<String> name) {
-        return String.format(template, name.or(defaultName));
+    @UnitOfWork
+    @Path("/getShow")
+    public Show getShow(@PathParam("id") LongParam id) {
+        return showDAO.findById(id.get());
     }
+
 }

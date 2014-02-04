@@ -1,8 +1,13 @@
 package com.github.kimagure.showtrackerservice.resources;
 
-import com.github.kimagure.showtrackerservice.ShowTrackerConfiguration;
-import com.google.common.base.Optional;
+import com.github.kimagure.showtrackerservice.core.Show;
+import com.github.kimagure.showtrackerservice.hibernate.ShowDAO;
+import com.yammer.dropwizard.testing.ResourceTest;
 import org.junit.Test;
+
+import static org.mockito.Matchers.anyLong;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,14 +17,20 @@ import org.junit.Test;
  * just because i wrote this code don't mean it works
  * cross your fingers and run the tests!
  */
-public class ShowTrackerResourceTest {
-    private final ShowTrackerConfiguration configuration = new ShowTrackerConfiguration();
-    private final ShowTrackerResource resource = new ShowTrackerResource(configuration.getTemplate(), configuration.getDefaultName());
+public class ShowTrackerResourceTest extends ResourceTest {
+    private final Show show = new Show(1, "マイピュアメイデンのアニメ", 12);
+    private final ShowDAO showDAO = mock(ShowDAO.class);
+
+    @Override
+    protected void setUpResources() {
+        when(showDAO.findById(anyLong())).thenReturn(show);
+        addResource(new ShowTrackerResource(showDAO));
+    }
 
     @Test
     public void testSayHello() throws Exception {
-        String response = resource.sayHello(Optional.of("man-child"));
-        assert(response.contains("man-child"));
-        assert(!response.contains(configuration.getDefaultName()));
+        Show testShow = client().resource("/show-tracker/getShow?id=1").get(Show.class);
+        System.out.println(testShow.getTitle());
+        assert(testShow.getId() == 1);
     }
 }
