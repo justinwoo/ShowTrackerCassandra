@@ -14,11 +14,11 @@ import javax.persistence.*;
 @Table(name = "Shows")
 @NamedQueries({
         @NamedQuery(
-                name = "com.github.kimagure.core.Show.findAll",
+                name = "com.github.kimagure.showtrackerservice.core.Show.findAll",
                 query = "SELECT s FROM Show s"
         ),
         @NamedQuery(
-                name = "com.github.kimagure.core.Show.findById",
+                name = "com.github.kimagure.showtrackerservice.core.Show.findById",
                 query = "SELECT s FROM Show s WHERE s.id = :id"
         )
 })
