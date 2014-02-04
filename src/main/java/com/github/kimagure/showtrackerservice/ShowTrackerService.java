@@ -1,7 +1,6 @@
 package com.github.kimagure.showtrackerservice;
 
 import com.github.kimagure.showtrackerservice.core.Show;
-import com.github.kimagure.showtrackerservice.health.TemplateHealthCheck;
 import com.github.kimagure.showtrackerservice.hibernate.ShowDAO;
 import com.github.kimagure.showtrackerservice.resources.ShowTrackerResource;
 import com.yammer.dropwizard.Service;
@@ -37,7 +36,7 @@ public class ShowTrackerService extends Service<ShowTrackerConfiguration> {
     }
 
     @Override
-    public void run(ShowTrackerConfiguration configuration, Environment environment) {
+    public void run(ShowTrackerConfiguration configuration, Environment environment) throws ClassNotFoundException {
         final ShowDAO showDAO = new ShowDAO(hibernate.getSessionFactory());
         environment.addResource(new ShowTrackerResource(showDAO));
     }

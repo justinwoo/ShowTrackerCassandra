@@ -9,7 +9,7 @@ database:
   password: mycrappypassword
 
   # the JDBC URL
-  url: jdbc:postgresql://localhost:5432/ShowTrackerDB
+  url: jdbc:postgresql://localhost:5432/showtrackerdb
 
   # any properties specific to your JDBC driver:
   properties:

@@ -13,6 +13,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.yammer.dropwizard.jersey.params.*;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: jxwoo
@@ -40,9 +42,21 @@ public class ShowTrackerResource {
     @GET
     @Timed
     @UnitOfWork
-    @Path("/getShow")
+    @Path("/get/all")
+    public List<Show> getAllShows() {
+        return showDAO.findAll();
+    }
+
+    @GET
+    @Timed
+    @UnitOfWork
+    @Path("/get/{id}")
     public Show getShow(@PathParam("id") LongParam id) {
         return showDAO.findById(id.get());
     }
+
+
+
+
 
 }

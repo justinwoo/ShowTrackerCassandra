@@ -15,8 +15,8 @@ import java.util.List;
  * cross your fingers and run the tests!
  */
 public class ShowDAO extends AbstractDAO<Show> {
-    public ShowDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
+    public ShowDAO(SessionFactory factory) {
+        super(factory);
     }
 
     public Show findById(Long id) {
@@ -28,8 +28,7 @@ public class ShowDAO extends AbstractDAO<Show> {
     }
 
     public List<Show> findAll() {
-        return list(namedQuery("com.github.kimagure.core.Show.findAll"));
+        return list(namedQuery("com.github.kimagure.showtrackerservice.core.Show.findAll"));
     }
-
 
 }
