@@ -39,7 +39,7 @@ public class Show {
     private String title;
 
     @Column(name = "episode", nullable = false)
-    private long episode;
+    private long episode = 1L;
 
     public void setId(long id) {
         this.id = id;
