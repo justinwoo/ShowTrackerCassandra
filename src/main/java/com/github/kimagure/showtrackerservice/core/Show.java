@@ -22,6 +22,10 @@ import javax.persistence.*;
         @NamedQuery(
                 name = "com.github.kimagure.showtrackerservice.core.Show.findById",
                 query = "SELECT s FROM Show s WHERE s.id = :id"
+        ),
+        @NamedQuery(
+                name = "com.github.kimagure.showtrackerservice.core.Show.findByTitle",
+                query = "SELECT s FROM Show s WHERE s.title = :title"
         )
 })
 public class Show {

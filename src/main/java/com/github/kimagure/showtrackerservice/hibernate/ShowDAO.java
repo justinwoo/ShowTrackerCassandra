@@ -23,6 +23,10 @@ public class ShowDAO extends AbstractDAO<Show> {
         return get(id);
     }
 
+    public List<Show> findByTitle(String title) {
+        return list(namedQuery("com.github.kimagure.showtrackerservice.core.Show.findByTitle").setString("title", title));
+    }
+
     public long post(Show show) {
         return persist(show).getId();
     }
