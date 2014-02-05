@@ -31,6 +31,10 @@ public class ShowDAO extends AbstractDAO<Show> {
         return persist(show).getId();
     }
 
+    public Show put(Show show) {
+        return persist(show);
+    }
+
     public List<Show> findAll() {
         return list(namedQuery("com.github.kimagure.showtrackerservice.core.Show.findAll"));
     }

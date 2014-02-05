@@ -62,8 +62,26 @@ public class ShowTrackerResource {
         if (shows.size() > 0) {
             return Response.ok(shows.get(0)).build();
         } else {
-            String nastyMessage = "We ain't got no shows with that name. Get outta here.";
+            String nastyMessage = "We ain't got no shows with that name. Get outta here!";
             return Response.status(Response.Status.NOT_FOUND).entity(nastyMessage).build();
+        }
+    }
+
+    @PUT
+    @Timed
+    @UnitOfWork
+    @Path("/change")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response putShow(Show show) {
+        Show prevShow = showDAO.findById(show.getId());
+        if (prevShow != null) {
+            prevShow.setTitle(show.getTitle());
+            prevShow.setEpisode(show.getEpisode());
+            show = showDAO.put(prevShow);
+            return Response.ok(prevShow).entity(show).build();
+        } else {
+            String nastyMessage = "What are you even trying to do here? Scram!";
+            return Response.status(Response.Status.BAD_REQUEST).entity(nastyMessage).build();
         }
     }
 
@@ -75,8 +93,8 @@ public class ShowTrackerResource {
     public Response postShow(Show show) {
         if (showDAO.findByTitle(show.getTitle()).size() < 1) {
             Long id = showDAO.post(show);
-            show.setId(id);
-            return Response.ok(show).build();
+            String friendlyMessage = "Yer show's been made with the id: " + id;
+            return Response.ok(show).entity(friendlyMessage).build();
         } else {
             String nastyMessage = "That show's already in the database, bozo";
             return Response.status(Response.Status.BAD_REQUEST).entity(nastyMessage).build();
