@@ -5,10 +5,7 @@ import com.github.kimagure.showtrackerservice.hibernate.ShowDAO;
 import com.yammer.dropwizard.hibernate.UnitOfWork;
 import com.yammer.metrics.annotation.Timed;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 import com.yammer.dropwizard.jersey.params.*;
@@ -55,8 +52,15 @@ public class ShowTrackerResource {
         return showDAO.findById(id.get());
     }
 
-
-
-
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/post")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Show postShow(Show show) {
+        Long id = showDAO.post(show);
+        show.setId(id);
+        return show;
+    }
 
 }

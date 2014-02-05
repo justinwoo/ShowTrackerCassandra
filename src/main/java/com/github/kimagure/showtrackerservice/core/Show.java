@@ -1,5 +1,7 @@
 package com.github.kimagure.showtrackerservice.core;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 /**
@@ -23,8 +25,10 @@ import javax.persistence.*;
         )
 })
 public class Show {
+    //    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GenericGenerator(name="generator", strategy="increment")
+    @GeneratedValue(generator="generator")
     private long id;
 
     @Column(name = "title", nullable = false)

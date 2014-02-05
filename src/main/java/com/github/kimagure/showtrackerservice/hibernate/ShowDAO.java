@@ -23,7 +23,7 @@ public class ShowDAO extends AbstractDAO<Show> {
         return get(id);
     }
 
-    public long create(Show show) {
+    public long post(Show show) {
         return persist(show).getId();
     }
 
