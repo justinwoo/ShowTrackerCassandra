@@ -40,7 +40,7 @@ public class ShowTrackerResource {
     @GET
     @Timed
     @UnitOfWork
-    @Path("/get/all")
+    @Path("/shows")
     public List<Show> getAllShows() {
         return showDAO.findAll();
     }
@@ -48,15 +48,7 @@ public class ShowTrackerResource {
     @GET
     @Timed
     @UnitOfWork
-    @Path("/get/{id}")
-    public Show getShow(@PathParam("id") LongParam id) {
-        return showDAO.findById(id.get());
-    }
-
-    @GET
-    @Timed
-    @UnitOfWork
-    @Path("/get-by-title/{title}")
+    @Path("/shows/title/{title}")
     public Response getShow(@PathParam("title") String title) {
         List<Show> shows = showDAO.findByTitle(title);
         if (shows.size() > 0) {
@@ -67,10 +59,18 @@ public class ShowTrackerResource {
         }
     }
 
+    @GET
+    @Timed
+    @UnitOfWork
+    @Path("/shows/{id}")
+    public Show getShow(@PathParam("id") LongParam id) {
+        return showDAO.findById(id.get());
+    }
+
     @PUT
     @Timed
     @UnitOfWork
-    @Path("/change")
+    @Path("/shows")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response putShow(Show show) {
         Show prevShow = showDAO.findById(show.getId());
@@ -88,7 +88,7 @@ public class ShowTrackerResource {
     @POST
     @Timed
     @UnitOfWork
-    @Path("/create")
+    @Path("/shows")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response postShow(Show show) {
         if (showDAO.findByTitle(show.getTitle()).size() < 1) {
