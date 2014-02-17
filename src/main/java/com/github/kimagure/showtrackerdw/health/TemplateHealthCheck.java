@@ -1,4 +1,4 @@
-package com.github.kimagure.showtrackerservice.health;
+package com.github.kimagure.showtrackerdw.health;
 
 import com.yammer.metrics.core.HealthCheck;
 
