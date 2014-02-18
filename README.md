@@ -4,23 +4,23 @@ very basic web service for creating table rows with id|title|episode information
 
 # Routes
 
-* GET     /show-tracker/get/all
+* GET     /shows
 
 get all shows
 
-* GET     /show-tracker/get/{id}
+* GET     /shows
 
 get a show by its index id
 
-* GET     /show-tracker/get-by-title/{title}
+* GET     /shows/title/{title}
 
 get a show by its title, returns a show or not found
 
-* POST    /show-tracker/create
+* POST    /shows
 
-a new show is created by specifying a title and optionally the new episode value
+a new show is created by specifying a title new episode value (id will be generated)
 
-* PUT     /show-tracker/change
+* PUT     /shows/{id}
 
 update operations are done by specifying the id and the new title and episode values
 
@@ -29,29 +29,16 @@ update operations are done by specifying the id and the new title and episode va
 
 * maven
 * java
-* postgresql
+* cassandra
 
 # Setup
 
-	-- Table: shows
-	
-	-- DROP TABLE shows;
-	
 	CREATE TABLE shows
 	(
-	  id integer NOT NULL DEFAULT nextval('"Shows_id_seq"'::regclass),
-	  title character varying NOT NULL,
-	  episode integer NOT NULL DEFAULT 1,
-	  CONSTRAINT "Shows_pkey" PRIMARY KEY (id),
-	  CONSTRAINT "no same titles" UNIQUE (title)
+        id text PRIMARY KEY,
+        title text,
+        episode int
 	)
-	WITH (
-	  OIDS=FALSE
-	);
-	ALTER TABLE shows
-	  OWNER TO "pg-user";
-	COMMENT ON TABLE shows
-	  IS 'for ShowTrackerService';
 
 
 # Running
@@ -59,7 +46,3 @@ update operations are done by specifying the id and the new title and episode va
 ![run config](http://media-cache-ak0.pinimg.com/originals/e1/15/22/e115221937c8ef192cdbe243eab83a81.jpg "intellij")
 
 or `java -jar **path-to-jar** server **path-to-yml**`
-
-# History
-
-Feb. 8: Grand release of 1.0

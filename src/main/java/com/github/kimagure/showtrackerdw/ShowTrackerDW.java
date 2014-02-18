@@ -1,5 +1,6 @@
 package com.github.kimagure.showtrackerdw;
 
+import com.github.kimagure.showtrackerdw.DAO.ShowDAO;
 import com.github.kimagure.showtrackerdw.resources.ShowTrackerResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -25,6 +26,7 @@ public class ShowTrackerDW extends Service<ShowTrackerConfiguration> {
 
     @Override
     public void run(ShowTrackerConfiguration configuration, Environment environment) throws ClassNotFoundException {
-        environment.addResource(new ShowTrackerResource());
+        ShowDAO showDAO = new ShowDAO();
+        environment.addResource(new ShowTrackerResource(showDAO));
     }
 }

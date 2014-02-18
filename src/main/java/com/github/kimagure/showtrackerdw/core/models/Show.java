@@ -1,4 +1,4 @@
-package com.github.kimagure.showtrackerdw.core;
+package com.github.kimagure.showtrackerdw.core.models;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,10 +13,10 @@ public class Show {
     private String title;
     private final long episode;
 
-    public Show(String id, long episode, String title) {
+    public Show(String id, String title, long episode) {
         this.id = id;
-        this.episode = episode;
         this.title = title;
+        this.episode = episode;
     }
 
     public String getId() {
