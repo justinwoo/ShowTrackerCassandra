@@ -1,6 +1,7 @@
 package com.github.kimagure.showtrackerdw;
 
 import com.github.kimagure.showtrackerdw.DAO.ShowDAO;
+import com.github.kimagure.showtrackerdw.astyanax.CassandraClient;
 import com.github.kimagure.showtrackerdw.resources.ShowTrackerResource;
 import com.yammer.dropwizard.Service;
 import com.yammer.dropwizard.config.Bootstrap;
@@ -25,8 +26,11 @@ public class ShowTrackerDW extends Service<ShowTrackerConfiguration> {
     }
 
     @Override
-    public void run(ShowTrackerConfiguration configuration, Environment environment) throws ClassNotFoundException {
-        ShowDAO showDAO = new ShowDAO();
+    public void run(ShowTrackerConfiguration configuration, Environment environment) throws Exception {
+        CassandraClient client = new CassandraClient();
+        CassandraClientManager manager = new CassandraClientManager(client);
+        manager.start();
+        ShowDAO showDAO = new ShowDAO(manager.getSession());
         environment.addResource(new ShowTrackerResource(showDAO));
     }
 }

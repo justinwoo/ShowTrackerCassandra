@@ -1,7 +1,13 @@
 package com.github.kimagure.showtrackerdw.DAO;
 
+import com.datastax.driver.core.PreparedStatement;
+import com.datastax.driver.core.ResultSet;
+import com.datastax.driver.core.Row;
+import com.datastax.driver.core.Session;
+import com.github.kimagure.showtrackerdw.CassandraClientManager;
 import com.github.kimagure.showtrackerdw.core.models.Show;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +19,14 @@ import java.util.List;
  */
 public class ShowDAO {
 
+    private Session session;
+
+    public ShowDAO(Session session) {
+        this.session = session;
+    }
+
     public Show findById(String id) {
+        PreparedStatement statement = session.prepare("SELECT * FROM shows");
         return null;
     }
 
@@ -26,7 +39,15 @@ public class ShowDAO {
     }
 
     public List<Show> findAll() {
-        return null;
+        ResultSet resultSet = session.execute("SELECT * FROM shows");
+        List<Show> shows = new ArrayList<Show>();
+        for(Row row : resultSet) {
+            String id = row.getString("id");
+            String title = row.getString("title");
+            Integer episode = row.getInt("episode");
+            shows.add(new Show(id, title, episode));
+        }
+        return shows;
     }
 
 }
