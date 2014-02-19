@@ -21,21 +21,69 @@ public class ShowDAO {
 
     private Session session;
 
+    private PreparedStatement selectByIdStatement;
+    private PreparedStatement selectByTitleStatement;
+    private PreparedStatement persistStatement;
+    private PreparedStatement perishStatement;
+
+
     public ShowDAO(Session session) {
         this.session = session;
     }
 
-    public Show findById(String id) {
-        PreparedStatement statement = session.prepare("SELECT * FROM shows");
-        return null;
+    public Show findById(String queryId) {
+        if (selectByIdStatement == null) {
+            synchronized (this) {
+                if (selectByIdStatement == null) {
+                    selectByIdStatement = session.prepare("SELECT * FROM shows WHERE id = ?");
+                }
+            }
+        }
+
+        ResultSet resultSet = session.execute(selectByIdStatement.bind(queryId));
+        Row row = resultSet.one();
+        String id = row.getString("id");
+        String title = row.getString("title");
+        Integer episode = row.getInt("episode");
+        return new Show(id, title, episode);
     }
 
-    public List<Show> findByTitle(String title) {
-        return null;
+    public Show findByTitle(String queryTitle) {
+        if (selectByTitleStatement == null) {
+            synchronized (this) {
+                if (selectByTitleStatement == null) {
+                    selectByTitleStatement = session.prepare("SELECT * FROM shows WHERE title = ?");
+                }
+            }
+        }
+        ResultSet resultSet = session.execute(selectByTitleStatement.bind(queryTitle));
+        Row row = resultSet.one();
+        String id = row.getString("id");
+        String title = row.getString("title");
+        Integer episode = row.getInt("episode");
+        return new Show(id, title, episode);
     }
 
     public void persist(Show show) {
-//        return null;
+        if (persistStatement == null) {
+            synchronized (this) {
+                if (persistStatement == null) {
+                    persistStatement = session.prepare("INSERT INTO shows (id, title, episode) VALUES (?, ?, ?)");
+                }
+            }
+        }
+        session.execute(persistStatement.bind(show.getId(), show.getTitle(), show.getEpisode()));
+    }
+
+    public void delete(String queryId) {
+        if (perishStatement == null) {
+            synchronized (this) {
+                if (perishStatement == null) {
+                    perishStatement = session.prepare("DELETE FROM shows WHERE id = ?");
+                }
+            }
+        }
+        session.execute(perishStatement.bind(queryId));
     }
 
     public List<Show> findAll() {

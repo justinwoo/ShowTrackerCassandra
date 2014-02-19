@@ -9,14 +9,21 @@ import com.github.kimagure.showtrackerdw.core.models.Show;
  * Time: 9:21 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ShowResponse {
-    private final Show show;
+public class ShowPayload {
+    private Show show;
 
-    public ShowResponse(Show show) {
+    public ShowPayload() {
+    }
+
+    public ShowPayload(Show show) {
         this.show = show;
     }
 
     public Show getShow() {
         return show;
+    }
+
+    public void setShow(Show show) {
+        this.show = show;
     }
 }

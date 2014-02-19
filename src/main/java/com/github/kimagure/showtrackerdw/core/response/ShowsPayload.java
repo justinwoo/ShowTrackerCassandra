@@ -11,10 +11,17 @@ import java.util.List;
  * Time: 9:22 PM
  * To change this template use File | Settings | File Templates.
  */
-public class ShowsResponse {
-    private final List<Show> shows;
+public class ShowsPayload {
+    private List<Show> shows;
 
-    public ShowsResponse(List<Show> shows) {
+    public ShowsPayload() {
+    }
+
+    public ShowsPayload(List<Show> shows) {
+        this.shows = shows;
+    }
+
+    public void setShows(List<Show> shows) {
         this.shows = shows;
     }
 
