@@ -1,9 +1,10 @@
 package com.github.kimagure.showtrackerdw;
 
 import com.github.kimagure.showtrackerdw.DAO.ShowDAO;
-import com.github.kimagure.showtrackerdw.astyanax.CassandraClient;
+import com.github.kimagure.showtrackerdw.cassandra.CassandraClient;
 import com.github.kimagure.showtrackerdw.resources.ShowTrackerResource;
 import com.yammer.dropwizard.Service;
+import com.yammer.dropwizard.assets.AssetsBundle;
 import com.yammer.dropwizard.config.Bootstrap;
 import com.yammer.dropwizard.config.Environment;
 
@@ -23,6 +24,7 @@ public class ShowTrackerDW extends Service<ShowTrackerConfiguration> {
     @Override
     public void initialize(Bootstrap<ShowTrackerConfiguration> bootstrap) {
         bootstrap.setName("show-tracker");
+        bootstrap.addBundle(new AssetsBundle("/assets", "/"));
     }
 
     @Override

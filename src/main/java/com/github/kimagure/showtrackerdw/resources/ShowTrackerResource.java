@@ -21,7 +21,7 @@ import java.util.UUID;
  * just because i wrote this code don't mean it works
  * cross your fingers and run the tests!
  */
-@Path("/show-tracker")
+@Path("/")
 @Produces(MediaType.APPLICATION_JSON)
 public class ShowTrackerResource {
 

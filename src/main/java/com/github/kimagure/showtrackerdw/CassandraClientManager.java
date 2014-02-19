@@ -1,7 +1,7 @@
 package com.github.kimagure.showtrackerdw;
 
 import com.datastax.driver.core.Session;
-import com.github.kimagure.showtrackerdw.astyanax.CassandraClient;
+import com.github.kimagure.showtrackerdw.cassandra.CassandraClient;
 import com.yammer.dropwizard.lifecycle.Managed;
 
 /**

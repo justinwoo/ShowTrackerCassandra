@@ -1,4 +1,4 @@
-package com.github.kimagure.showtrackerdw.astyanax;
+package com.github.kimagure.showtrackerdw.cassandra;
 
 import com.datastax.driver.core.Cluster;
 import com.datastax.driver.core.Session;

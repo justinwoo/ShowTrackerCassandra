@@ -40,7 +40,7 @@ public class ShowDAO {
 
     public List<Show> findAll() {
         ResultSet resultSet = session.execute("SELECT * FROM shows");
-        List<Show> shows = new ArrayList<Show>();
+        List<Show> shows = new ArrayList<>();
         for(Row row : resultSet) {
             String id = row.getString("id");
             String title = row.getString("title");
