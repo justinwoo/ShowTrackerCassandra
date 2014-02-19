@@ -10,7 +10,7 @@ package com.github.kimagure.showtrackerdw.core.models;
  */
 public class Show {
     private final String id;
-    private String title;
+    private final String title;
     private final long episode;
 
     public Show(String id, String title, long episode) {
