@@ -13,15 +13,24 @@ import com.datastax.driver.core.Session;
 public class CassandraClient {
     private Cluster cluster;
     private Session session;
+    private String host;
+    private String keyspace;
+
+    public CassandraClient(String host, String keyspace) {
+        this.host = host;
+        this.keyspace = keyspace;
+    }
 
     public void start() {
         cluster = Cluster.builder()
-                .addContactPoint("localhost")
+                .addContactPoint(host)
                 .build();
-        session = cluster.connect("showtracker");
+        session = cluster.connect(keyspace);
     }
 
     public void stop() {
+        session.shutdown();
+        cluster.shutdown();
     }
 
     public Session getSession() {

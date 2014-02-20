@@ -29,7 +29,7 @@ public class ShowTrackerDW extends Service<ShowTrackerConfiguration> {
 
     @Override
     public void run(ShowTrackerConfiguration configuration, Environment environment) throws Exception {
-        CassandraClient client = new CassandraClient();
+        CassandraClient client = new CassandraClient("localhost", "showtracker");
         CassandraClientManager manager = new CassandraClientManager(client);
         manager.start();
         ShowDAO showDAO = new ShowDAO(manager.getSession());
